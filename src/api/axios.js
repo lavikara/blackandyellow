@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURL = `${process.env.VUE_APP_BASE_URL}`;
+const baseURL = import.meta.env.VITE_APP_BASE_URL;
 import { getItem } from "@/utils/storage.js";
 import store from "../store/Index";
 
