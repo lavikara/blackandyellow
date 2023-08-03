@@ -6,10 +6,6 @@ import * as actions from "./actions";
 import taskModule from "./taskModule/index";
 
 const store = createStore({
-  // state: {},
-  // getters: {},
-  // mutations: {},
-  // actions: {},
   state,
   getters,
   mutations,
