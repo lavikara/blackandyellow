@@ -1,7 +1,7 @@
 <template>
   <div id="header-profile" class="tw-retlative tw-flex tw-items-center">
     <div
-      class="dropdown tw-relative tw-flex tw-flex-col tw-items-center tw-bg-gray-lightest tw-px-4 tw-py-2 tw-rounded tw-cursor-pointer"
+      class="dropdown tw-relative tw-flex tw-flex-col tw-items-center tw-bg-gray-light tw-px-4 tw-py-2 tw-rounded tw-cursor-pointer"
     >
       <div class="tw-flex tw-items-center">
         <img
@@ -27,18 +27,6 @@
             fill="#8791A7"
           />
         </svg>
-      </div>
-      <div
-        class="menu tw-absolute tw-hidden tw-rounded tw-top-12 tw-bg-gray-lightest tw-w-full tw-py-4"
-      >
-        <ul class="tw-px-4">
-          <li
-            class="list tw-cursor-pointer tw-rounded tw-px-4 tw-py-1"
-            @click="logout"
-          >
-            Logout
-          </li>
-        </ul>
       </div>
     </div>
   </div>
