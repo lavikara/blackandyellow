@@ -11,9 +11,11 @@
       </h3>
       <div v-for="(item, index) in taskList" :key="item.id">
         <div
-          class="task-bg tw-w-full tw-font-light tw-tracking-widest tw-text-md tw-leading-relaxed tw-rounded-lg tw-cursor-pointer tw-mt-4 tw-p-2"
+          class="task-bg tw-w-full tw-font-light tw-tracking-widest tw-text-md tw-leading-relaxed tw-rounded-lg tw-mt-4 tw-p-2"
           :class="{
-            'tw-border-0': contentEditable === true && item.id === btnId,
+            'tw-border-0 tw-cursor-text':
+              contentEditable === true && item.id === btnId,
+            ' tw-cursor-grab': contentEditable === false,
           }"
           draggable="true"
           :contentEditable="contentEditable"
