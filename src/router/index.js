@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 const HomeView = () => import("@/views/HomeView.vue");
 const OnboardingView = () => import("@/views/OnboardingView.vue");
-const TaskView = () => import("@/views/TaskView.vue");
+const BoardView = () => import("@/views/BoardView.vue");
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,21 +34,30 @@ const router = createRouter({
     },
     {
       path: "/dashboard",
-      name: "TaskView",
-      component: TaskView,
+      name: "BoardView",
+      component: BoardView,
       children: [
         {
           path: "",
-          name: "DefaultTaskView",
-          redirect: { name: "TaskPage" },
+          name: "DefaultBoardView",
+          redirect: { name: "BoardPage" },
         },
         {
-          path: "tasks",
-          name: "TaskPage",
+          path: "board",
+          name: "BoardPage",
           component: () =>
             import(
               /* webpackChunkName: "dashboard" */
-              "@/layout/task/TaskPage.vue"
+              "@/layout/board/BoardPage.vue"
+            ),
+        },
+        {
+          path: "settings",
+          name: "Settings",
+          component: () =>
+            import(
+              /* webpackChunkName: "dashboard" */
+              "@/layout/board/Settings.vue"
             ),
         },
       ],
