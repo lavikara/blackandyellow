@@ -16,14 +16,14 @@
           <button>
             <PlusBoxIcon
               class="tw-cursor-pointer"
-              colour="#1a8a87"
-              width="25"
-              height="25"
+              colour="#8791A7"
+              width="24"
+              height="24"
             />
           </button>
           <CloseBoxIcon
             class="tw-cursor-pointer tw-ml-"
-            colour="#1a8a87"
+            colour="#8791A7"
             width="24"
             height="24"
             @click="emit('clicked')"
