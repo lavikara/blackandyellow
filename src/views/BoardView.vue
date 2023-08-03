@@ -1,5 +1,6 @@
 <template>
   <div id="task-view">
+    <!-- <Loader v-if="loading" /> -->
     <MobileSidebar />
     <Sidebar />
     <div class="view-container">
@@ -19,9 +20,18 @@
 </template>
 
 <script setup>
+import { ref, computed } from "vue";
+import { useStore } from "vuex";
 import DashboardHeader from "../layout/navigation/Header.vue";
+import Loader from "../components/notification/Loader.vue";
 import Sidebar from "../layout/navigation/Sidebar.vue";
 import MobileSidebar from "../layout/navigation/MobileSidebar.vue";
+
+const store = useStore();
+
+const loading = computed(() => {
+  return store.state.loading;
+});
 </script>
 
 <style lang="scss" scoped>
