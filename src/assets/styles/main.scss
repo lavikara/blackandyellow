@@ -13,7 +13,7 @@
 
 body {
   font-family: 'Grotesk', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #240053;
+  color: #001140;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
 }
@@ -25,6 +25,11 @@ textarea {
   outline: none;
   background: transparent;
   resize: none;
+}
+
+div{
+  outline: none;
+
 }
 
 select {
@@ -73,6 +78,15 @@ button {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.unselectable {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #cc0000;
 }
 
 /* Chrome, Safari, Edge, Opera */
