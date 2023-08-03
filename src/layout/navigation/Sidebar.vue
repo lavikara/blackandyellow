@@ -1,5 +1,5 @@
 <template>
-  <div id="sidebar" class="tw-hidden xl:tw-inline-block tw-z-10">
+  <div id="sidebar" class="tw-hidden xl:tw-inline-block tw-mx-8 tw-z-10">
     <div
       class="sidebar-container tw-fixed tw-top-0 tw-h-screen tw-overflow-y-scroll tw-pb-16 tw-bg-white"
     >
@@ -11,9 +11,16 @@
       <nav>
         <div>
           <SidebarMenu
-            title="Task"
-            href="/dashboard/tasks"
-            :focus="tasksFocus || $route.path.includes('/dashboard/tasks')"
+            title="Board"
+            href="/dashboard/board"
+            :focus="boardFocus || $route.path.includes('/dashboard/board')"
+          />
+          <SidebarMenu
+            title="Settings"
+            href="/dashboard/settings"
+            :focus="
+              settingsFocus || $route.path.includes('/dashboard/settings')
+            "
           />
         </div>
       </nav>
@@ -31,16 +38,21 @@ export default {
 
   data() {
     return {
-      tasksFocus: false,
+      boardFocus: false,
+      settingsFocus: false,
     };
   },
 
   methods: {
     setFocus(route) {
-      this.tasksFocus = false;
+      this.boardFocus = false;
+      this.settingsFocus = false;
       switch (route) {
         case "TaskPage":
-          this.tasksFocus = true;
+          this.boardFocus = true;
+          break;
+        case "Settings":
+          this.settingsFocus = true;
           break;
       }
     },

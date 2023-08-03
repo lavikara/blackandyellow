@@ -25,9 +25,17 @@
             alt="groov-logo"
           />
           <SidebarMenu
-            title="Task"
-            href="/dashboard/tasks"
-            :focus="tasksFocus || $route.path.includes('/dashboard/tasks')"
+            title="Board"
+            href="/dashboard/board"
+            :focus="boardFocus || $route.path.includes('/dashboard/board')"
+            @click="closeSidebar"
+          />
+          <SidebarMenu
+            title="Settings"
+            href="/dashboard/settings"
+            :focus="
+              settingsFocus || $route.path.includes('/dashboard/settings')
+            "
             @click="closeSidebar"
           />
         </div>
@@ -47,7 +55,8 @@ export default {
 
   data() {
     return {
-      tasksFocus: false,
+      boardFocus: false,
+      settingsFocus: false,
     };
   },
 
@@ -59,10 +68,14 @@ export default {
     },
 
     setFocus(route) {
-      this.tasksFocus = false;
+      this.boardFocus = false;
+      this.settingsFocus = false;
       switch (route) {
         case "TaskPage":
-          this.tasksFocus = true;
+          this.boardFocus = true;
+          break;
+        case "Settings":
+          this.settingsFocus = true;
           break;
       }
     },
