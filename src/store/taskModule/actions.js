@@ -1,11 +1,13 @@
 import api from "@/api/task";
 
-export const getAllTask = async ({ commit }) => {
+export const getAllTask = async ({ commit, dispatch }) => {
   try {
+    dispatch("setLoading", true, { root: true });
     const response = await api.getAllTask();
     const { tasks } = response.data;
     tasks.push({});
     commit("SET_ALL_TASKS", tasks);
+    dispatch("setLoading", false, { root: true });
     return true;
   } catch (error) {
     console.log(error);
