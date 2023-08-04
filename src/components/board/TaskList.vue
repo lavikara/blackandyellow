@@ -48,7 +48,7 @@
           </div>
         </div>
       </div>
-      <div class="">
+      <div class="tw-mt-4">
         <TextAreaInput
           v-if="showAddTask"
           class=""
