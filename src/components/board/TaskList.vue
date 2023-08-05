@@ -30,51 +30,53 @@
               :id="item.id"
               @click="deleteTask(item.id)"
             />
-            <div>
-              <CheckIcon
-                class="btn tw-cursor-pointer"
-                v-show="contentEditable === true && item.id === btnId"
-                :id="item.id"
-                @click="saveTask(item.id)"
-              />
-
-              <PenIcon
-                class="btn tw-cursor-pointer"
-                v-show="contentEditable === false || item.id !== btnId"
-                :id="item.id"
-                @click="editTask(item.id)"
-              />
-            </div>
+            <PenIcon
+              class="btn tw-cursor-pointer"
+              v-show="contentEditable === false || item.id !== btnId"
+              :id="item.id"
+              @click="openEditModal(item.id)"
+            />
           </div>
         </div>
       </div>
       <div class="tw-mt-4">
         <TextAreaInput
-          v-if="showAddTask"
+          v-if="showAddTask.status && showAddTask.title === title"
           class=""
           :inputStyle="inputStyle"
           placeHolder="Enter Task"
           label="Enter Task"
           name="task"
-          id="task"
+          id="enterTask"
           @set="setTask"
         />
         <BtnComponent
-          v-if="!showAddTask"
+          v-if="!showAddTask.status || showAddTask.title !== title"
           class="btn tw-mt-4"
           title="Add Task"
           :btnStyle="addTaskBtnStyle"
           @click="toggleAddTask"
         />
         <BtnComponent
-          v-if="showAddTask"
+          v-if="showAddTask.status && showAddTask.title === title"
           class="btn"
           title="Save"
           :btnStyle="btnStyle"
-          @click="addTask"
+          @click="addNewTask"
         />
       </div>
     </div>
+    <Teleport to="#teleport-modal">
+      <SmallModal v-if="showEditModal" class="tw-z-50" @close="closeEditModal">
+        <template v-slot:content>
+          <EditModal
+            header="Edit Task"
+            :task="currentTask"
+            @close="closeEditModal"
+          />
+        </template>
+      </SmallModal>
+    </Teleport>
   </div>
 </template>
 
@@ -84,19 +86,22 @@ import { useStore } from "vuex";
 import { checkForOnlyWhiteSpace } from "@/utils/helpers";
 import PenIcon from "@/components/icons/PenIcon.vue";
 import TrashIcon from "@/components/icons/TrashIcon.vue";
-import CheckIcon from "@/components/icons/CheckIcon.vue";
 import BtnComponent from "@/components/general/BtnComponent.vue";
 import TextAreaInput from "@/components/general/TextAreaInput.vue";
+import EditModal from "@/components/board/EditModal.vue";
+import SmallModal from "@/components/general/SmallModal.vue";
 
 const store = useStore();
 
 const props = defineProps({
   title: { type: String, default: () => "", required: true },
   taskList: { type: Array, default: () => [], required: true },
+  showAddTask: { type: Object, default: () => {}, required: true },
 });
 
+const showEditModal = ref(false);
 const contentEditable = ref(false);
-const showAddTask = ref(false);
+let currentTask = ref("");
 let task = ref("");
 const btnId = ref("");
 const inputStyle = reactive({
@@ -123,28 +128,37 @@ const addTaskBtnStyle = reactive({
   fontSize: "16px",
 });
 
-const editTask = (id) => {
-  contentEditable.value = true;
-  btnId.value = id;
-};
-
-const saveTask = (id) => {
-  contentEditable.value = false;
-  const task = document.getElementById(id).innerText;
-  btnId.value = "";
-  store.dispatch("taskModule/editTask", {
+const openEditModal = (id) => {
+  store.dispatch("taskModule/showAddTaskModal", {
     title: props.title,
-    task: { id, task },
+    status: false,
   });
+  currentTask.value = document.getElementById(id).innerText;
+  store.dispatch("taskModule/setCurrentTask", {
+    id,
+    task: currentTask.value,
+    title: props.title,
+  });
+  showEditModal.value = true;
 };
 
-const saveTitle = (id) => {
+const closeEditModal = () => {
+  showEditModal.value = false;
+  store.dispatch("taskModule/setCurrentTask", {});
+};
+
+const saveTitle = (title) => {
   contentEditable.value = false;
-  document.getElementById(id).blur();
+  document.getElementById(title).blur();
+  const editedTitle = document.getElementById(title).innerText;
+  store.dispatch("taskModule/editTitle", { title, editedTitle: editedTitle });
 };
 
 const toggleAddTask = () => {
-  showAddTask.value = true;
+  store.dispatch("taskModule/showAddTaskModal", {
+    title: props.title,
+    status: true,
+  });
 };
 
 const setTask = (payload) => {
@@ -158,8 +172,11 @@ const deleteTask = (id) => {
   });
 };
 
-const addTask = () => {
-  showAddTask.value = false;
+const addNewTask = () => {
+  store.dispatch("taskModule/showAddTaskModal", {
+    title: props.title,
+    status: false,
+  });
   const hasOnlyWhiteSpace = checkForOnlyWhiteSpace(task.value);
   if (!task.value.length || hasOnlyWhiteSpace) return;
   store.dispatch("taskModule/addTask", {
