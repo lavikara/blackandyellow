@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="hover:tw-bg-green tw-rounded-lg tw-p-1">
     <svg
       :width="width"
       :height="height"
