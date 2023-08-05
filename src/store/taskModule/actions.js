@@ -45,9 +45,39 @@ export const editTask = async ({ commit }, payload) => {
   }
 };
 
+export const editTitle = async ({ commit }, payload) => {
+  try {
+    commit("EDIT_TITLE", payload);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
 export const deleteTask = async ({ commit }, payload) => {
   try {
     commit("DELETE_TASK", payload);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+export const setCurrentTask = async ({ commit }, payload) => {
+  try {
+    commit("SET_CURRENT_TASK", payload);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+export const showAddTaskModal = async ({ commit }, payload) => {
+  try {
+    commit("SHOW_ADD_TASK_MODAL", payload);
     return true;
   } catch (error) {
     console.log(error);

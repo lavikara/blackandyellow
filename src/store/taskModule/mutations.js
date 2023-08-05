@@ -13,25 +13,30 @@ export const ADD_TASK = (state, payload) => {
 export const ADD_TITLE = (state, payload) => {
   const lastIndex = state.tasks.length - 1;
   state.tasks.splice(lastIndex, 0, payload);
-  // state.tasks.map((task) => {
-  //   if (task.title === payload.title) {
-  //     task.taskList.push(payload.task);
-  //   }
-  // });
 };
 
 export const EDIT_TASK = (state, payload) => {
-  // state.tasks.map((task) => {
-  //   if (task.title === payload.title) {
-  //     console.log(task);
-  //     const indexToReplace = task.taskList.findIndex(
-  //       (obj) => obj.id === payload.id
-  //     );
-  //     if (indexToReplace !== -1) {
-  //       task.taskList.splice(indexToReplace, 1, payload.task);
-  //     }
-  //   }
-  // });
+  state.tasks.map((task) => {
+    if (task.title === payload.title) {
+      const indexToReplace = task.taskList.findIndex(
+        (obj) => obj.id === payload.id
+      );
+      if (indexToReplace !== -1) {
+        task.taskList.splice(indexToReplace, 1, {
+          id: payload.id,
+          task: payload.task,
+        });
+      }
+    }
+  });
+};
+
+export const EDIT_TITLE = (state, payload) => {
+  state.tasks.map((task) => {
+    if (task.title === payload.title) {
+      task.title = payload.editedTitle;
+    }
+  });
 };
 
 export const DELETE_TASK = (state, payload) => {
@@ -42,4 +47,12 @@ export const DELETE_TASK = (state, payload) => {
       task.taskList = newTaskList;
     }
   });
+};
+
+export const SET_CURRENT_TASK = (state, payload) => {
+  state.currentTask = payload;
+};
+
+export const SHOW_ADD_TASK_MODAL = (state, payload) => {
+  state.showAddTask = payload;
 };
