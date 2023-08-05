@@ -24,8 +24,6 @@
           <CloseBoxIcon
             class="tw-cursor-pointer tw-ml-"
             colour="#8791A7"
-            width="24"
-            height="24"
             @click="emit('clicked')"
           />
         </div>
