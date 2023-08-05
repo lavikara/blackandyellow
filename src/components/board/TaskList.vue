@@ -57,13 +57,20 @@
           :btnStyle="addTaskBtnStyle"
           @click="toggleAddTask"
         />
-        <BtnComponent
-          v-if="showAddTask.status && showAddTask.title === title"
-          class="btn"
-          title="Save"
-          :btnStyle="btnStyle"
-          @click="addNewTask"
-        />
+        <div class="tw-flex tw-justify-between">
+          <CheckIcon
+            v-if="showAddTask.status && showAddTask.title === title"
+            class="btn tw-cursor-pointer"
+            colour="#8791A7"
+            @click="addNewTask"
+          />
+          <CloseBoxIcon
+            v-if="showAddTask.status && showAddTask.title === title"
+            class="btn tw-cursor-pointer"
+            colour="#8791A7"
+            @click="closeAddNewTask"
+          />
+        </div>
       </div>
     </div>
     <Teleport to="#teleport-modal">
@@ -86,6 +93,8 @@ import { useStore } from "vuex";
 import { checkForOnlyWhiteSpace } from "@/utils/helpers";
 import PenIcon from "@/components/icons/PenIcon.vue";
 import TrashIcon from "@/components/icons/TrashIcon.vue";
+import CheckIcon from "@/components/icons/CheckIcon.vue";
+import CloseBoxIcon from "@/components/icons/CloseBoxIcon.vue";
 import BtnComponent from "@/components/general/BtnComponent.vue";
 import TextAreaInput from "@/components/general/TextAreaInput.vue";
 import EditModal from "@/components/board/EditModal.vue";
@@ -109,17 +118,6 @@ const inputStyle = reactive({
   paddingTop: "2px",
   paddingBottom: "2px",
   paddingLeft: "8px",
-});
-const btnStyle = reactive({
-  backgroundColor: "#1a8a87",
-  hoverColor: "#1a8a87",
-  hoverBgColor: "#a2eeeb",
-  color: "#ffffff",
-  fontSize: "12px",
-  paddingTop: "1px",
-  paddingBottom: "1px",
-  paddingLeft: "6px",
-  paddingRight: "6px",
 });
 
 const addTaskBtnStyle = reactive({
@@ -145,6 +143,13 @@ const openEditModal = (id) => {
 const closeEditModal = () => {
   showEditModal.value = false;
   store.dispatch("taskModule/setCurrentTask", {});
+};
+
+const closeAddNewTask = () => {
+  store.dispatch("taskModule/showAddTaskModal", {
+    title: props.title,
+    status: false,
+  });
 };
 
 const saveTitle = (title) => {
