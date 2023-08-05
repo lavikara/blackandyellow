@@ -1,6 +1,12 @@
 <template>
   <div id="task-list">
-    <div class="task tw-w-full tw-rounded-lg tw-p-4">
+    <div
+      class="task tw-w-full tw-rounded-lg tw-p-4"
+      ref="dropZone"
+      @drop="onDrop"
+      @dragenter="onDragEnter"
+      @dragover.prevent
+    >
       <h3
         :id="title"
         class="tw-font-bold tw-text-xl"
@@ -9,14 +15,7 @@
       >
         {{ title }}
       </h3>
-      <div
-        v-for="(item, index) in taskList"
-        :key="item.id"
-        ref="dropZone"
-        @drop="onDrop"
-        @dragenter="onDragEnter"
-        @dragover.prevent
-      >
+      <div v-for="(item, index) in taskList" :key="item.id">
         <div
           class="task-bg tw-w-full tw-font-light tw-tracking-widest tw-text-md tw-leading-relaxed tw-rounded-lg tw-mt-4 tw-p-2"
           :class="{
@@ -120,8 +119,6 @@ const showEditModal = ref(false);
 const contentEditable = ref(false);
 let currentTask = ref("");
 let task = ref("");
-let draggedTask = ref("");
-let startPositionTitle = ref("");
 const btnId = ref("");
 const inputStyle = reactive({
   backgroundColor: "#ffffff",
