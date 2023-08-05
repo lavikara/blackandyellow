@@ -9,7 +9,14 @@
       >
         {{ title }}
       </h3>
-      <div v-for="(item, index) in taskList" :key="item.id">
+      <div
+        v-for="(item, index) in taskList"
+        :key="item.id"
+        ref="dropZone"
+        @drop="onDrop"
+        @dragenter="onDragEnter"
+        @dragover.prevent
+      >
         <div
           class="task-bg tw-w-full tw-font-light tw-tracking-widest tw-text-md tw-leading-relaxed tw-rounded-lg tw-mt-4 tw-p-2"
           :class="{
@@ -20,6 +27,7 @@
           draggable="true"
           :contentEditable="contentEditable"
           @blur="contentEditable = false"
+          @dragstart="onDragStart"
         >
           <p :id="item.id">
             {{ item.task }}
@@ -112,6 +120,8 @@ const showEditModal = ref(false);
 const contentEditable = ref(false);
 let currentTask = ref("");
 let task = ref("");
+let draggedTask = ref("");
+let startPositionTitle = ref("");
 const btnId = ref("");
 const inputStyle = reactive({
   backgroundColor: "#ffffff",
@@ -125,6 +135,23 @@ const addTaskBtnStyle = reactive({
   color: "#1a8a87",
   fontSize: "16px",
 });
+
+const onDragStart = (event) => {
+  store.dispatch("taskModule/setStartDragValues", {
+    id: event.target.firstChild.id,
+    title: props.title,
+    task: event.target.innerText,
+  });
+};
+
+const onDragEnter = (event) => {
+  // console.log(event);
+  // console.log(event.target);
+};
+
+const onDrop = (event) => {
+  store.dispatch("taskModule/setDraggedTask", props.title);
+};
 
 const openEditModal = (id) => {
   store.dispatch("taskModule/showAddTaskModal", {
