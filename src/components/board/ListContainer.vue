@@ -6,6 +6,7 @@
           v-if="item?.title"
           :title="item?.title"
           :taskList="item?.taskList"
+          :showAddTask="showAddTask"
         />
         <div v-if="!item.title" class="tw-absolute tw-top-0 tw-w-full">
           <AddTitle
@@ -35,6 +36,10 @@ let showTitleField = ref(false);
 
 const tasks = computed(() => {
   return store.state.taskModule.tasks;
+});
+
+const showAddTask = computed(() => {
+  return store.state.taskModule.showAddTask;
 });
 </script>
 
