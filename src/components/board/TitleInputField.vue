@@ -51,13 +51,6 @@ const inputStyle = reactive({
   paddingLeft: "8px",
 });
 
-const btnStyle = reactive({
-  backgroundColor: "#1a8a87",
-  hoverColor: "#ffffff",
-  hoverBgColor: "#156e6c",
-  color: "#ffffff",
-});
-
 const emit = defineEmits(["clicked"]);
 
 const addTitle = () => {
