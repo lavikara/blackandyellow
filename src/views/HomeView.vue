@@ -26,9 +26,7 @@ const testSdk = () => {
     fullName: "Adewale Johnson",
     phone: "+2348144582144",
   };
-  fundWithVirtualAccount("apiKey", details).then((response) => {
-    console.log(response);
-  });
+  fundWithVirtualAccount("apiKey", details);
 };
 </script>
 
