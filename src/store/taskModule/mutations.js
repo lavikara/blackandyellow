@@ -56,3 +56,28 @@ export const SET_CURRENT_TASK = (state, payload) => {
 export const SHOW_ADD_TASK_MODAL = (state, payload) => {
   state.showAddTask = payload;
 };
+
+export const SET_DRAGGED_TASK = (state, payload) => {
+  let newTaskList = [];
+  state.tasks.map((task) => {
+    if (task.title === payload && state.startDragValues.title !== payload) {
+      task.taskList.push({
+        id: state.startDragValues.id,
+        task: state.startDragValues.task,
+      });
+    }
+    if (
+      task.title === state.startDragValues.title &&
+      state.startDragValues.title !== payload
+    ) {
+      newTaskList = task.taskList.filter(
+        (obj) => obj.id !== state.startDragValues.id
+      );
+      task.taskList = newTaskList;
+    }
+  });
+};
+
+export const SET_START_DRAG_VALUES = (state, payload) => {
+  state.startDragValues = payload;
+};

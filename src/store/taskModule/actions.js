@@ -84,3 +84,23 @@ export const showAddTaskModal = async ({ commit }, payload) => {
     return false;
   }
 };
+
+export const setDraggedTask = async ({ commit }, payload) => {
+  try {
+    commit("SET_DRAGGED_TASK", payload);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+export const setStartDragValues = async ({ commit }, payload) => {
+  try {
+    commit("SET_START_DRAG_VALUES", payload);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};

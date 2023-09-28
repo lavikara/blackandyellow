@@ -1,6 +1,12 @@
 <template>
   <div id="task-list">
-    <div class="task tw-w-full tw-rounded-lg tw-p-4">
+    <div
+      class="task tw-w-full tw-rounded-lg tw-p-4"
+      ref="dropZone"
+      @drop="onDrop"
+      @dragenter="onDragEnter"
+      @dragover.prevent
+    >
       <h3
         :id="title"
         class="tw-font-bold tw-text-xl"
@@ -20,6 +26,7 @@
           draggable="true"
           :contentEditable="contentEditable"
           @blur="contentEditable = false"
+          @dragstart="onDragStart"
         >
           <p :id="item.id">
             {{ item.task }}
@@ -125,6 +132,23 @@ const addTaskBtnStyle = reactive({
   color: "#1a8a87",
   fontSize: "16px",
 });
+
+const onDragStart = (event) => {
+  store.dispatch("taskModule/setStartDragValues", {
+    id: event.target.firstChild.id,
+    title: props.title,
+    task: event.target.innerText,
+  });
+};
+
+const onDragEnter = (event) => {
+  // console.log(event);
+  // console.log(event.target);
+};
+
+const onDrop = (event) => {
+  store.dispatch("taskModule/setDraggedTask", props.title);
+};
 
 const openEditModal = (id) => {
   store.dispatch("taskModule/showAddTaskModal", {
