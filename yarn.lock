@@ -159,10 +159,10 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@lavikara/testsdk@^0.0.38":
-  version "0.0.38"
-  resolved "https://registry.yarnpkg.com/@lavikara/testsdk/-/testsdk-0.0.38.tgz#636ce2420f13a20f72a1ef00f19d10f6627b9bfe"
-  integrity sha512-pqmBvl16SsvymKuUDSwTkMz2a0az8kmfjCUP2AaspTgxZSEqb44rS1tIG8WB24iv9YOBkPiYsvAqLUBLCjjESQ==
+"@lavikara/testsdk@^0.0.41":
+  version "0.0.41"
+  resolved "https://registry.yarnpkg.com/@lavikara/testsdk/-/testsdk-0.0.41.tgz#f45df8e783f5c2fe3c71454dc4c189e4bf4f7150"
+  integrity sha512-J/tcwsgk5ZDGjcnQdN2AwVFYzpAJ2cS8Mysa0MJrj9DO82GBesiwk7TTP+9Hy8UeIaCGRQWqdHAiFFLJOQ8lbA==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
