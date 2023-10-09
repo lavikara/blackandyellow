@@ -8,7 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@lavikara/testsdk": "^0.0.37",
+    "@lavikara/testsdk": "^0.0.38",
     "axios": "^1.4.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4",
